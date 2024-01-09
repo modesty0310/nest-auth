@@ -12,3 +12,15 @@ export class SignUpDto {
   @IsNotEmpty()
   pw: string;
 }
+
+export class SignInDto {
+  @ApiProperty({ description: 'id' })
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
+  @ApiProperty({ description: 'pw' })
+  @IsString()
+  @IsNotEmpty()
+  pw: string;
+}

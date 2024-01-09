@@ -14,7 +14,7 @@ export class UserService {
     const uid = uuidv4();
     const { id, pw } = dto;
 
-    const existId = await this.repository.existId(id);
+    const existId = await this.repository.existUserById(id);
     if (existId) throw new BadRequestException('이미 존재 하는 아이디 입니다.');
 
     const hashedPassword = await await bcrypt.hash(

@@ -24,7 +24,20 @@ export class UserRepository {
       .execute();
   }
 
-  async existId(id: string) {
+  async existUserById(id: string) {
     return await this.repository.createQueryBuilder().where({ id }).getOne();
+  }
+
+  async insertRefreshToken(
+    uid: string,
+    refreshToken: string,
+    refreshTokenExp: number,
+  ) {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ refreshTokenExp, refreshToken })
+      .where({ uid })
+      .execute();
   }
 }

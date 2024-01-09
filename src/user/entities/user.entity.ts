@@ -15,5 +15,5 @@ export class User {
   refreshToken: string;
 
   @Column({ nullable: true })
-  refreshTokenExp: Date;
+  refreshTokenExp: number;
 }
