@@ -24,7 +24,7 @@ export class UserRepository {
       .execute();
   }
 
-  async existUserById(id: string) {
+  async getUserById(id: string) {
     return await this.repository.createQueryBuilder().where({ id }).getOne();
   }
 

@@ -1,8 +1,10 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignInDto, SignUpDto } from './dto/req.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { Response } from 'express';
+import { IUser, UserGuard } from 'src/auth/guards/user.guard';
+import { User } from 'src/auth/decorators/user.decorator';
 
 @Controller('user')
 export class UserController {
@@ -10,6 +12,12 @@ export class UserController {
     private readonly service: UserService,
     private readonly authService: AuthService,
   ) {}
+
+  @Get()
+  @UseGuards(UserGuard)
+  async getMyInfo(@User() user: IUser) {
+    return await this.service.getMyInfo(user);
+  }
 
   @Post('sign-up')
   async signUp(@Body() dto: SignUpDto) {

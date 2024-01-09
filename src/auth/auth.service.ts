@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   private async validateUser(id: string, pw: string) {
-    const user = await this.userRepository.existUserById(id);
+    const user = await this.userRepository.getUserById(id);
     if (!user) throw new UnauthorizedException('존재 하지 않는 유저입니다.');
 
     const comparePassword = await bcrypt.compare(pw, user.password);
@@ -44,14 +44,14 @@ export class AuthService {
   private generateAccessToken(user: User) {
     return this.jwtService.sign(
       { id: user.id, sub: user.uid },
-      { expiresIn: '30s' },
+      { expiresIn: process.env.ACCESS_EXP },
     );
   }
 
   private generateRefreshToken(user: User) {
     return this.jwtService.sign(
       { id: user.id, sub: user.uid },
-      { expiresIn: '30s' },
+      { expiresIn: process.env.REFRESH_EXP },
     );
   }
 
